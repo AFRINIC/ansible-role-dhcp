@@ -1,4 +1,4 @@
-# ISC DHCPD configuration -- don't edit manually!
+# ISC DHCPD configuration
 #
 # {{ ansible_managed }}
 
@@ -56,6 +56,9 @@ option ntp-servers {{ dhcp_global_ntp_servers }};
 {% else %}
 option ntp-servers {{ dhcp_global_ntp_servers|join(', ') }};
 {% endif %}
+{% if dhcp_global_time_offset is defined %}
+option time-offset {{ dhcp_global_time_offset }};
+{% endif %}
 {% endif %}
 {% if dhcp_global_domain_name_servers is defined %}
 {% if dhcp_global_domain_name_servers is string %}
@@ -102,6 +105,12 @@ class "{{ class.name }}" {
 #
 # Subnet declarations
 #
+
+{% if ansible_default_ipv4.network not in dhcp_subnets|map(attribute='ip')|join(', ') %}
+# Need system subnet to start up
+subnet {{ansible_default_ipv4.network}} netmask {{ansible_default_ipv4.netmask}} { }
+
+{% endif %}
 {% for subnet in dhcp_subnets %}
 subnet {{ subnet.ip }} netmask {{ subnet.netmask }} {
 {% if subnet.default_lease_time is defined %}
@@ -177,6 +186,7 @@ subnet {{ subnet.ip }} netmask {{ subnet.netmask }} {
 {% endfor %}
 {% endif %}
 }
+
 {% endfor %}
 {% if dhcp_hosts is defined %}
 {% for host in dhcp_hosts %}
@@ -184,5 +194,6 @@ host {{ host.name }} {
   hardware ethernet {{ host.mac }};
   fixed-address {{ host.ip }};
 }
+
 {% endfor %}
 {% endif %}

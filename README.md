@@ -56,6 +56,7 @@ See the [dhcp-options(5)](http://linux.die.net/man/5/dhcp-options) man page for 
 | `dhcp_global_routers`             | IP address of the router                                                |
 | `dhcp_global_server_name`         | Server name sent to the client                                          |
 | `dhcp_global_subnet_mask`         | Global subnet mask                                                      |
+| `dhcp_global_time_offset`         | Global timezone offset from UTC                                         |
 | `dhcp_global_omapi_port`          | OMAPI port                                                              |
 | `dhcp_global_omapi_secret`        | OMAPI secret                                                            |
 | `dhcp_global_other_options`       | Array of arbitrary additional global options                            |
