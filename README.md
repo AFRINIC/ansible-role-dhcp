@@ -1,4 +1,4 @@
-# Ansible role `dhcp`
+# Ansible role `isc-dhcpd`
 
 Ansible role for setting up ISC DHCPD. The responsibilities of this role are to:
 
@@ -7,18 +7,17 @@ Ansible role for setting up ISC DHCPD. The responsibilities of this role are to:
 
 The following are NOT concerns of this role:
 
-- Managing firewall configuration: Use e.g. [bertvv.el7](https://galaxy.ansible.com/list#/roles/2305) for this.
+- Managing firewall configurations.
+
+## A note on origins
+
+This is forked from [bertvv/ansible-role-dhcp](https://github.com/bertvv/ansible-role-dhcp) to allow for some local requirements to be added in, including using [molecule](http://molecule.readthedocs.io/) for testing, but also other config customisations.
 
 ## A note on compatibility
 
-Version 2.0.0 of this role uses features that are introduced in Ansible 2.0. Users of older versions of Ansible can use version 1.1.0 which has identical functionality. An overview of role compatibility:
+This fork is form Version 2.0.0 of the original role, and uses features that are introduced in Ansible 2.0. There is no support here for older Ansible versions.
 
-| Role version | Ansible version | Supported platform                         |
-| :---         | :---            | :---                                       |
-| 1.1.0        | 1.7.x - 1.9.x   | CentOS 6-7                                 |
-| 2.0.0        | >= 2.0          | CentOS 6-7, Fedora 23, Ubuntu 14.04, 16.04 |
-
-Only the platforms on which the role was successfully tested are mentioned, but it should also work on other versions of these distributions. If you get it working on another platform, let me know and I will add it to the list.
+This fork is also currently only tested on CentOS 7.x.
 
 ## Requirements
 
@@ -177,18 +176,11 @@ See the [test playbook](https://github.com/bertvv/ansible-role-dhcp/blob/tests/t
 
 ## Testing
 
-Tests for this role are provided in the form of a Vagrant environment that is kept in a separate branch, `tests`. I use [git-worktree(1)](https://git-scm.com/docs/git-worktree) to include the test code into the working directory. Instructions for running the tests:
-
-1. Fetch the tests branch: `git fetch origin tests`
-2. Create a Git worktree for the test code: `git worktree add tests tests` (remark: this requires at least Git v2.5.0). This will create a directory `tests/`.
-3. `cd tests/`
-4. `vagrant up` will then create a VM and apply a test playbook (`test.yml`).
-
-You may want to change the base box into one that you like. The current one, [bertvv/centos72](https://atlas.hashicorp.com/bertvv/boxes/centos72) was generated using a Packer template from the [Boxcutter project](https://github.com/boxcutter/centos) with a few modifications.
+Testing in this fork has been moved to using [molecule](http://molecule.readthedocs.io/) with the Vagrant driver.
 
 ## Contributing
 
-Issues, feature requests, ideas are appreciated and can be posted in the Issues section. Pull requests are also very welcome. Preferably, create a topic branch and when submitting, squash your commits into one (with a descriptive message).
+Issues, feature requests, ideas are ideally added to the origin ([bertvv/ansible-role-dhcp](https://github.com/bertvv/ansible-role-dhcp)) repository for widest distribution. Pull requests to that repo are welcomed. Preferably, create a topic branch there, and when submitting, squash your commits into one (with a descriptive message).
 
 ## License
 
@@ -196,7 +188,8 @@ BSD
 
 ## Contributors
 
-- [Bert Van Vreckem](https://github.com/bertvv) (maintainer)
+- [Daniel Shaw, AFRINIC](https://github.com/AFRINIC) (fork maintainer)
+- [Bert Van Vreckem](https://github.com/bertvv) (original maintainer)
 - [Birgit Croux](https://github.com/birgitcroux/)
 - [@donvipre](https://github.com/donvipre)
 - Felix Egli
