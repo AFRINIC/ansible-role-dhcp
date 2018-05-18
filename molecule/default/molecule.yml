@@ -2,22 +2,38 @@
 dependency:
   name: galaxy
 driver:
-  name: docker
+  name: vagrant
+  provider:
+    name: virtualbox
 lint:
   name: yamllint
 platforms:
-  - name: instance
-    image: centos/systemd:latest
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    command: /usr/sbin/init
-    privileged: true
+  - name: instance.local
+    box: bento/centos-7.4
 provisioner:
 provisioner:
   name: ansible
   inventory:
     host_vars:
-      instance:
+      instance.local:
+        dhcp_global_authoritative: authoritative
+        dhcp_global_default_lease_time: 3600
+        dhcp_global_max_lease_time: 7200
+        dhcp_global_domain_name_servers:
+          - 196.192.112.172
+          - 196.192.112.171
+        dhcp_global_ntp_servers:
+          - 196.192.112.5
+          - 196.192.112.6
+        dhcp_global_time_offset: 14400
+        dhcp_subnets:
+          - ip: 196.1.0.192
+            netmask: 255.255.255.192
+            pools:
+              range_begin: 196.1.0.193
+              range_end: 196.1.0.254
+            routers: 196.1.0.225
+            
   lint:
     name: ansible-lint
 scenario:
