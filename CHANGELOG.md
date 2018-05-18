@@ -1,8 +1,12 @@
-# Change log
+# Change Log
 
-This file contains al notable changes to the dhcp Ansible role.
+This file contains all notable changes to the origial dhcp Ansible role prior to forking.
 
 This file adheres to the guidelines of [http://keepachangelog.com/](http://keepachangelog.com/). Versioning follows [Semantic Versioning](http://semver.org/).
+
+## Post-Fork (2018-May)
+
+For all changes after forking, please just check the git logs.
 
 ## 2.1.2 - 2017-11-21
 
